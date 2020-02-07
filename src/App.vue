@@ -4,16 +4,18 @@
       <v-app-bar shrink-on-scroll absolute color="#ffb69f" src = "https://i.pinimg.com/originals/f7/9d/1f/f79d1faa3cd97ab3df901e2a4f716a7d.jpg" light dense app>
 
       </v-app-bar>
-    <v-navigation-drawer app>
+    <v-navigation-drawer app color="blue-grey lighten-4" dark expand-on-hover hide-overlay permanent mini-variant-width="38px">
         <div id="nav">
-            <router-link to="/" tag = 'li'>Home   </router-link>
-            <router-link to="/about" tag = 'li'>About  </router-link>
-            <router-link to="/login" tag = 'li'>Login   </router-link>
-            <router-link to="/register" tag = 'li'>Registration</router-link>
+            <v-list nav dense shaped>
+                <v-list-item><router-link to="/" >Home   </router-link></v-list-item>
+                <v-list-item><router-link to="/about" >About  </router-link> </v-list-item>
+                <v-list-item><router-link to="/login">Login   </router-link> </v-list-item>
+                <v-list-item><router-link to="/register" >Registration</router-link> </v-list-item>
+            </v-list>
         </div>
     </v-navigation-drawer>
       <v-content app>
-        <v-container app>
+        <v-container app fluid>
           <router-view login="logInto" @register="regUser"/>
         </v-container>
       </v-content>
@@ -33,7 +35,7 @@
 #nav {
   padding: 30px;
 
-  li {
+  a {
     font-weight: bold;
     color: #ff35aa;
     padding: 10px;
