@@ -18,34 +18,41 @@
             ></v-text-field>
 
             <v-text-field
-                label="Введите желаемое имя:"
+                label="Введите желаемое имя"
                 v-model="name"
                 outlined
             ></v-text-field>
 
             <v-text-field
-                label="Ваш сайт:"
+                label="Ваш сайт"
                 v-model="website"
                 outlined
             ></v-text-field>
 
             <v-text-field
-                label="Электронный адрес для связи:"
+                label="Электронный адрес для связи"
                 v-model="email"
                 outlined
             ></v-text-field>
 
             <v-text-field
-                label="Город:"
+                label="Город"
                 v-model="city"
                 outlined
             ></v-text-field>
 
             <v-text-field
-                label="Город:"
+                label="Компания"
                 v-model="company"
                 outlined
             ></v-text-field>
+
+            <v-text-field
+                label="Ссылка на аватарку"
+                v-model="avatar"
+                outlined
+            ></v-text-field>
+
 
             <!--input v-model="password" type = "password"-->
             <v-btn @click="register">
@@ -69,7 +76,8 @@ export default {
   website : '',
   email : '',
   city : '',
-  company : ''
+  company : '',
+  avatar: ''
   };
   },
   methods: {
@@ -77,7 +85,7 @@ export default {
   this.axios.get('http://188.225.47.187/api/jsonstorage/107088275edd7ca5850406e669197382').then(
   (response)=> {
     let users = response.data;
-    users.push({login : this.login, password : this.password, name : this.name, website : this.website, email : this.email, city : this.city, company : this.company});
+    users.push({login : this.login, password : this.password, name : this.name, website : this.website, email : this.email, city : this.city, company : this.company, avatar : this.avatar});
     this.axios.put('http://188.225.47.187/api/jsonstorage/107088275edd7ca5850406e669197382', users).then();
     this.$emit('register', {data : users[users.length() - 1], id : users.length() - 1});
   }
