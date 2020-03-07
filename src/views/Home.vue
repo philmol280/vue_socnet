@@ -1,32 +1,14 @@
 <template>
   <div class="home">
-     <v-row class="text-left">
-            <v-col cols="10">
-                <h1 class="green--text text--darken-2">
-                    <v-icon large color="green darken-2">mdi-account-outline</v-icon>
-                    Иван Иванов
-                </h1>
-            </v-col>
-        </v-row>
-        <v-row class="text-left">
-            <v-col cols="2">
-                <img src="https://randomuser.me/api/portraits/men/7.jpg" style="max-width: 100%">
-            </v-col>
-            <v-col cols="10" class="text-left">
-                <p>
-                    Веб-сайт: <a href="..." target="_blank">...</a>
-                </p>
-                <p>
-                    E-mail: <a href="mailto:...">...</a>
-                </p>
-                <p>
-                    Город: ...
-                </p>
-                <p>
-                    Место работы: ...
-                </p>
-            </v-col>
-        </v-row>
+    <v-card v-for="item in obj" :key="item"
+    class="mx-auto"
+    shaped>
+      <v-list-item-avatar><img :src=item.avatar></v-list-item-avatar>
+      <v-list-item-content class="font-weight-black">
+                        <v-list-item-title> {{item.company}} </v-list-item-title>
+                        <v-list-item-subtitle>{{item.name}} </v-list-item-subtitle>
+      </v-list-item-content>
+    </v-card>
   </div>
 </template>
 
@@ -35,8 +17,15 @@
 
 export default {
   name: 'home',
-  props: ['userData'],
+  data() { return {obj : {}};},
   components: {
+  },
+  mounted() {
+   this.axios.get('http://188.225.47.187/api/jsonstorage/107088275edd7ca5850406e669197382').then(
+  (response)=> {
+  this.obj = response.data;
+  }
+  );
   }
 }
 </script>

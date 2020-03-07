@@ -51,7 +51,7 @@ export default {
         }
     }
     if (found == -1) {
-        window.alert('bad login/password');
+        window.alert('incorrect login or password');
     }
   }
   );

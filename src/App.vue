@@ -12,10 +12,11 @@
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider class="my-3"></v-divider>
-                <v-list-item link to="/" :props="userData"><v-list-item-icon><v-icon>mdi-home-outline</v-icon></v-list-item-icon><v-list-item-content><v-list-item-title>Home   </v-list-item-title></v-list-item-content></v-list-item>
+                <v-list-item link to="/"><v-list-item-icon><v-icon>mdi-home-outline</v-icon></v-list-item-icon><v-list-item-content><v-list-item-title>Home   </v-list-item-title></v-list-item-content></v-list-item>
                 <v-list-item  link to="/about"> <v-list-item-icon><v-icon>mdi-alpha</v-icon></v-list-item-icon><v-list-item-content> <v-list-item-title>About  </v-list-item-title> </v-list-item-content> </v-list-item>
                 <v-list-item  link to="/login"> <v-list-item-icon><v-icon> mdi-account-arrow-right</v-icon> </v-list-item-icon><v-list-item-content> <v-list-item-title>Login   </v-list-item-title> </v-list-item-content></v-list-item>
                 <v-list-item  link to="/register"><v-list-item-icon> <v-icon>mdi-account-arrow-left-outline</v-icon></v-list-item-icon><v-list-item-content><v-list-item-title>Registration</v-list-item-title> </v-list-item-content> </v-list-item>
+                <v-list-item link :to=id><v-list-item-icon><v-icon>mdi-account-circle</v-icon></v-list-item-icon><v-list-item-content><v-list-item-title>Profile </v-list-item-title></v-list-item-content></v-list-item>
             </v-list>
         </div>
     </v-navigation-drawer>
@@ -25,7 +26,7 @@
       <v-content class="px-10 py-15">
         <v-container app fluid>
 
-          <router-view @login="logInto" @register="regUser"/>
+          <router-view @login="logInto" :userData="userData" @register="regUser" @logout="logOut"/>
         </v-container>
       </v-content>
 </v-app>
@@ -65,18 +66,22 @@ export default {
   },
   data(){
   return {
-  id : '-1',
+  id : '/users/-1',
   userData : {}
   };
   },
   methods : {
   logInto(obj) {
     this.userData = obj.data;
-    this.id = obj.id;
+    this.id = "/users/" + obj.id;
   },
   regUser(obj) {
     this.userData = obj.data;
-    this.id = obj.id;
+    this.id = "/users/" + obj.id;
+  },
+  logOut(){
+    this.userData = {};
+    this.id = "/users/-1";
   }
   }
 }
