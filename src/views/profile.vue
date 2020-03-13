@@ -1,6 +1,7 @@
 <template>
   <div class="home">
       <div v-if="logged">
+          <div v-if="!edit">
      <v-row class="text-left">
             <v-col cols="10">
                 <h1 class="green--text text--darken-2">
@@ -28,6 +29,46 @@
                 </p>
             </v-col>
         </v-row>
+              <v-btn v-if="typeof userData['login'] !== 'undefined' " @click='edit = true'>Edit profile data</v-btn>
+          </div>
+          <div v-if="edit">
+               <v-text-field
+                label="Сменить имя"
+                v-model="userData.name"
+                outlined
+            ></v-text-field>
+
+            <v-text-field
+                label="Сменить сайт"
+                v-model="userData.website"
+                outlined
+            ></v-text-field>
+
+            <v-text-field
+                label="Сменить email"
+                v-model="userData.email"
+                outlined
+            ></v-text-field>
+
+            <v-text-field
+                label="Изменить город"
+                v-model="userData.city"
+                outlined
+            ></v-text-field>
+
+            <v-text-field
+                label="Изменить компанию"
+                v-model="userData.company"
+                outlined
+            ></v-text-field>
+
+            <v-text-field
+                label="Ссылка на аватарку"
+                v-model="userData.avatar"
+                outlined
+            ></v-text-field>
+              <v-btn @click="send">Apply changes</v-btn>
+          </div>
           <v-btn @click="logout">Logout</v-btn>
       </div>
       <div v-if="!logged">
@@ -49,12 +90,14 @@ export default {
   name: 'profile',
   props: ['userData'],
   data() {
-  return {logged : false};},
+  return {logged : false, edit : false};},
   mounted(){
   this.logged = (this.$route.params.id != '-1');
+  this.edit = false;
   },
   watch: {$route(){
   this.logged = (this.$route.params.id != '-1');
+  this.edit = false;
   }},
   components: {
   },
@@ -63,6 +106,15 @@ export default {
   this.$emit('logout');
   this.logged = false;
   this.$router.push('/');
+  },
+  send() {
+  this.axios.get('http://188.225.47.187/api/jsonstorage/107088275edd7ca5850406e669197382').then(
+  (response)=> {
+    let users = response.data;
+    users[Number(this.$route.params.id)] = this.userData;
+    this.axios.put('http://188.225.47.187/api/jsonstorage/107088275edd7ca5850406e669197382', users);
+  }
+  );
   }
   }
 }
